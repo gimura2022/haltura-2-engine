@@ -58,9 +58,9 @@ static void qbp_render_geometry(SDL_Renderer* renderer, const vec4* geometry, co
 	SDL_RenderGeometry(renderer, NULL, vert, geometry_num, NULL, 0);
 }
 
-void qbp_render_node(SDL_Renderer* renderer, struct qsp_node* node, const vec3* pos)
+void qbp_render_node(SDL_Renderer* renderer, struct qsp_node* node, const vec4* pos)
 {
-	qbp_render_geometry(renderer, plane, sizeof(plane) / sizeof(vec3));
+	qbp_render_geometry(renderer, plane, array_size(plane));
 }
 
 int main(int argc, char* argv[])
