@@ -8,7 +8,6 @@
 #include <eng_render_main.h>
 
 struct render_layer {
-	int16_t index;
 	SDL_Texture* texture;
 	SDL_FRect* texture_rect;
 
@@ -49,11 +48,10 @@ void render_main__present_frame(void)
 	SDL_RenderPresent(renderer);
 }
 
-void render_main__add_layer(int16_t index, SDL_Texture* texture, SDL_FRect* texture_rect)
+void render_main__add_layer(SDL_Texture* texture, SDL_FRect* texture_rect)
 {
 	struct render_layer* layer = malloc(sizeof(struct render_layer));
 
-	layer->index        = index;
 	layer->texture      = texture;
 	layer->texture_rect = texture_rect;
 

@@ -11,6 +11,6 @@ void render_main__finit(void);
 
 void render_main__present_frame(void);
 
-void render_main__add_layer(int16_t index, SDL_Texture* texture, SDL_FRect* texture_rect);
+void render_main__add_layer(SDL_Texture* texture, SDL_FRect* texture_rect);
 
 #endif
