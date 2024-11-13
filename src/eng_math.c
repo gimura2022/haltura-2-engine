@@ -3,11 +3,9 @@
 
 #include <eng_math.h>
 
-static void mat4x4_create_zero_matrix(mat4x4* mat);
-
 void mat4x4_create_prespective_matrix(const double fov, const double near, const double far, mat4x4* mat)
 {
-	mat4x4_create_zero_matrix(mat);
+	math_mat4x4__create_zero(mat);
 
 	const double scale = 1 / tan(fov * 0.5 * M_PI / 180);
 
@@ -21,7 +19,7 @@ void mat4x4_create_prespective_matrix(const double fov, const double near, const
 
 void mat4x4_create_rotation_matrix(const double theta, const vec4* to, mat4x4* mat)
 {
-	mat4x4_create_zero_matrix(mat);
+	math_mat4x4__create_zero(mat);
 
 	const double sint = sin(theta);
 	const double cost = cos(theta);
@@ -50,7 +48,7 @@ void mat4x4_create_rotation_matrix(const double theta, const vec4* to, mat4x4* m
 
 void mat4x4_create_size_matrix(const vec4* size, mat4x4* mat)
 {
-	mat4x4_create_zero_matrix(mat);
+	math_mat4x4__create_zero(mat);
 
 	mat->x.x = size->x;
 	mat->y.y = size->y;
@@ -60,14 +58,14 @@ void mat4x4_create_size_matrix(const vec4* size, mat4x4* mat)
 
 void mat4x4_create_transform_matrix(const vec4* pos, mat4x4* mat)
 {
-	mat4x4_create_zero_matrix(mat);
+	math_mat4x4__create_zero(mat);
 
 	mat->x.w = pos->x;
 	mat->y.w = pos->y;
 	mat->z.w = pos->z;
 }
 
-void mat4x4_apply_to_vec4(const mat4x4* mat, vec4* vec)
+void math_mat4x4__apply_to_vec4(const mat4x4* mat, vec4* vec)
 {
 	vec4 new_vec = {};
 
@@ -82,17 +80,25 @@ void mat4x4_apply_to_vec4(const mat4x4* mat, vec4* vec)
 	vec->w = new_vec.w;
 }
 
-void mat4x4_apply_to_vec4_array(const mat4x4* mat, vec4* vecs, const size_t vecs_size)
+void math_mat4x4__apply_to_vec4_arr(const mat4x4* mat, vec4* vecs, const size_t vecs_size)
 {
 	for (size_t i = 0; i < vecs_size; i++) {
-		mat4x4_apply_to_vec4(mat, &vecs[i]);
+		math_mat4x4__apply_to_vec4(mat, &vecs[i]);
 	}
 }
 
-static void mat4x4_create_zero_matrix(mat4x4* mat)
+void math_mat4x4__create_zero(mat4x4* mat)
 {
 	mat->x.x = 1;
 	mat->y.y = 1;
 	mat->z.z = 1;
 	mat->w.w = 1;
+}
+
+mat4x4 math_mat4x4__create_zero_inline(void)
+{
+	mat4x4 mat;
+	math_mat4x4__create_zero(&mat);
+
+	return mat;
 }
