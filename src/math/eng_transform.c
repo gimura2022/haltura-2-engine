@@ -1,7 +1,6 @@
-#include "eng_math.h"
 #include <math.h>
 
-#include <eng_transform.h>
+#include <math/eng_transform.h>
 
 void transform__projection(mat4x4* mat, const double fov, const double near, const double far)
 {

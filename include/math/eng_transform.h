@@ -1,7 +1,7 @@
 #ifndef _eng_transform_h
 #define _eng_transform_h
 
-#include <eng_math.h>
+#include <math/eng_math.h>
 
 void transform__projection(mat4x4* mat, const double fov, const double near, const double far);
 void transform__rotation(mat4x4* mat, const double theta, const vec4* to);

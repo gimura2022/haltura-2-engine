@@ -1,10 +1,6 @@
-#include <math.h>
 #include <stddef.h>
 
-#include <eng_math.h>
-
-
-
+#include <math/eng_math.h>
 
 void math_mat4x4__apply_to_vec4(const mat4x4* mat, vec4* vec)
 {
