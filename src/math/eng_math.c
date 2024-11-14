@@ -1,4 +1,5 @@
 #include <stddef.h>
+#include <stdarg.h>
 
 #include <math/eng_math.h>
 
@@ -38,4 +39,100 @@ mat4x4 math_mat4x4__create_zero_inline(void)
 	math_mat4x4__create_zero(&mat);
 
 	return mat;
+}
+
+void math_vec4__mul(vec4* vec0, const vec4* vec1)
+{
+	vec0->x *= vec1->x;
+	vec0->y *= vec1->y;
+	vec0->z *= vec1->z;
+	vec0->w *= vec1->w;
+}
+
+vec4 math_vec4__mul_inline(const vec4* vec)
+{
+	vec4 out;
+	math_vec4__mul(&out, vec);
+
+	return out;
+}
+
+static void math_vec4__muls_va_list(vec4* vec, const size_t count, va_list args);
+
+void math_vec4__muls(vec4* vec, const size_t count, ...)
+{
+	va_list args;
+	va_start(args, count);
+
+	math_vec4__muls_va_list(vec, count, args);
+
+	va_end(args);
+}
+
+vec4 math_vec4__muls_inline(const size_t count, ...)
+{
+	va_list args;
+	va_start(args, count);
+
+	vec4 out;
+	math_vec4__muls_va_list(&out, count, args);
+
+	va_end(args);
+
+	return out;
+}
+
+void math_mat4x4__mul(mat4x4* mat0, const mat4x4* mat1)
+{
+	math_vec4__mul(&mat0->x, &mat1->x);
+	math_vec4__mul(&mat0->y, &mat1->y);
+	math_vec4__mul(&mat0->z, &mat1->z);
+	math_vec4__mul(&mat0->w, &mat1->w);
+}
+
+mat4x4 math_mat4x4__mul_inline(const mat4x4* mat)
+{
+	mat4x4 out;
+	math_mat4x4__mul(&out, mat);
+
+	return out;
+}
+
+static void math_mat4x4__muls_va_list(mat4x4* mat, const size_t count, va_list args);
+
+void math_mat4x4__muls(mat4x4* mat, const size_t count, ...)
+{
+	va_list args;
+	va_start(args, count);
+
+	math_mat4x4__muls_va_list(mat, count, args);
+
+	va_end(args);
+}
+
+mat4x4 math_mat4x4__muls_inline(const size_t count, ...)
+{
+	va_list args;
+	va_start(args, count);
+
+	mat4x4 mat;
+	math_mat4x4__muls_va_list(&mat, count, args);
+
+	va_end(args);
+
+	return mat;
+}
+
+static void math_vec4__muls_va_list(vec4* vec, const size_t count, va_list args)
+{
+	for (size_t i = 0; i < count; i++) {
+		math_vec4__mul(vec, va_arg(args, vec4*));
+	}
+}
+
+static void math_mat4x4__muls_va_list(mat4x4* mat, const size_t count, va_list args)
+{
+	for (size_t i = 0; i < count; i++) {
+		math_mat4x4__mul(mat, va_arg(args, vec4*));
+	}
 }
