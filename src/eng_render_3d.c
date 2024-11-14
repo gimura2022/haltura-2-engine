@@ -3,7 +3,6 @@
 #include <SDL3/SDL_render.h>
 
 #include <eng_render_3d.h>
-#include <eng_math.h>
 #include <eng_util.h>
 
 static vec4 plane[] = {

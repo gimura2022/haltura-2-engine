@@ -6,7 +6,7 @@
 #include <SDL3/SDL_video.h>
 #include <SDL3/SDL_render.h>
 
-#include <eng_math.h>
+#include <math/eng_math.h>
 
 struct render_vertex_group {
 	vec4* points;

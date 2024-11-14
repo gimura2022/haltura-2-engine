@@ -1,8 +1,6 @@
 #include <stdbool.h>
 #include <stddef.h>
-#include <stdlib.h>
 #include <stdbool.h>
-#include <string.h>
 
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
@@ -10,7 +8,7 @@
 #include <SDL3/SDL_init.h>
 #include <SDL3/SDL_render.h>
 
-#include <eng_math.h>
+#include <math/eng_math.h>
 #include <eng_util.h>
 #include <eng_render_3d.h>
 #include <eng_render_main.h>
