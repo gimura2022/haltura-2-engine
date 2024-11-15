@@ -9,7 +9,6 @@
 
 struct render_layer {
 	SDL_Texture* texture;
-	SDL_FRect* texture_rect;
 
 	struct render_layer *next, *prev;
 };
@@ -21,7 +20,7 @@ static struct render_layer* end_render_layer   = NULL;
 
 void render_main__init(SDL_Window* window)
 {
-	renderer = SDL_CreateRenderer(window, "render_main");
+	renderer = SDL_CreateRenderer(window, "render3d");
 }
 
 void render_main__finit(void)
@@ -42,18 +41,17 @@ void render_main__present_frame(void)
 	SDL_RenderClear(renderer);	
 
 	for (struct render_layer* i = start_render_layer; i != NULL; i = i->next) {
-		SDL_RenderTexture(renderer, i->texture, NULL, i->texture_rect);
+		SDL_RenderTexture(renderer, i->texture, NULL, NULL);
 	}
 
 	SDL_RenderPresent(renderer);
 }
 
-void render_main__add_layer(SDL_Texture* texture, SDL_FRect* texture_rect)
+void render_main__add_layer(SDL_Texture* texture)
 {
 	struct render_layer* layer = malloc(sizeof(struct render_layer));
 
-	layer->texture      = texture;
-	layer->texture_rect = texture_rect;
+	layer->texture = texture;
 
 	if (start_render_layer == NULL) start_render_layer = layer;
 	if (end_render_layer != NULL) end_render_layer->next = layer;
